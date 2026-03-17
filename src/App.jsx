@@ -1,71 +1,38 @@
 
 import './App.css'
-import { useState } from 'react'
-import ProductCard from './components/ProductCard'
-import Button from './components/Button'
-import LoginForm from './components/LoginForm'
-import Alert from './components/Alert'
-import ProductList from './components/ProductList'
-import UserList from './components/UserList'
-import UserSearch from './components/UserSearch'
-import PostSearch from './components/PostSearch'
-import TodoApp from './components/TodoApp'
+import { Routes, Route } from 'react-router-dom'
+import Navbar from './components/Navbar'
+import Home from './pages/Home'
+import About from './pages/About'
+import Contact from './pages/Contact'
+import NotFound from './pages/NotFound'
+import Products from './pages/Products'
+import ProductDetail from './pages/ProductDetail'
+import Checkout from './pages/Checkout'
+import Dashboard from './pages/Dashboard'
+import Profile from './pages/dashboard/Profile'
+import Orders from './pages/dashboard/Orders'
+import Settings from './pages/dashboard/Settings'
 
 function App() {
-  const [alerts, setAlerts] = useState([
-    { id: 1, type: 'success', message: 'Thao tác thành công!' },
-    { id: 2, type: 'warning', message: 'Cảnh báo: Dung lượng sắp đầy.' },
-    { id: 3, type: 'error', message: 'Lỗi: Không thể kết nối server.' },
-  ]);
-
-  const removeAlert = (id) => {
-    setAlerts((prev) => prev.filter((a) => a.id !== id));
-  };
-
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '32px', padding: '40px 20px' }}>
-      <h1 style={{ margin: 0 }}>Bài 1 – Product Card</h1>
-      <ProductCard />
-
-      <h1 style={{ margin: 0 }}>Bài 2 – Button Component</h1>
-      <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap', justifyContent: 'center' }}>
-        <Button type="primary">Primary</Button>
-        <Button type="danger">Danger</Button>
-        <Button type="success">Success</Button>
-      </div>
-
-      <h1 style={{ margin: 0 }}>Bài 3 – Login Form</h1>
-      <LoginForm />
-
-      <h1 style={{ margin: 0 }}>Bài 4 – Alert / Notification</h1>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', width: '100%', alignItems: 'center' }}>
-        {alerts.map((alert) => (
-          <Alert
-            key={alert.id}
-            type={alert.type}
-            message={alert.message}
-            onClose={() => removeAlert(alert.id)}
-          />
-        ))}
-      </div>
-
-      <h1 style={{ margin: 0 }}>Bài 5 – Responsive Product List</h1>
-      <ProductList />
-
-      <hr style={{ width: '100%', border: 'none', borderTop: '2px solid #e2e2ee', margin: '16px 0' }} />
-
-      <h1 style={{ margin: 0 }}>Fetch Bài 1+2 – User List</h1>
-      <UserList />
-
-      <h1 style={{ margin: 0 }}>Fetch Bài 3 – User Search</h1>
-      <UserSearch />
-
-      <h1 style={{ margin: 0 }}>Fetch Bài 4 – Post Search</h1>
-      <PostSearch />
-
-      <h1 style={{ margin: 0 }}>Fetch Bài 5 – Todo CRUD</h1>
-      <TodoApp />
-    </div>
+    <>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/products" element={<Products />} />
+        <Route path="/products/:id" element={<ProductDetail />} />
+        <Route path="/checkout" element={<Checkout />} />
+        <Route path="/dashboard" element={<Dashboard />}>
+          <Route path="profile" element={<Profile />} />
+          <Route path="orders" element={<Orders />} />
+          <Route path="settings" element={<Settings />} />
+        </Route>
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </>
   )
 }
 
