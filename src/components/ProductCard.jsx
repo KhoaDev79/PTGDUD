@@ -1,12 +1,12 @@
 import React from "react";
 import './ProductCard.css';
 
-const ProductCard = () => {
+const ProductCard = ({ name = "Nike Air Max", price = "$150", image = "/images/nike.jpg" }) => {
   return (
     <div className='card'>
-      <img src='/images/nike.jpg' alt='Nike' className='card-img' />
-      <h2 className='card-title'>Nike Air Max</h2>
-      <p className='card-price'>$150</p>
+      <img src={image} alt={name} className='card-img' />
+      <h2 className='card-title'>{name}</h2>
+      <p className='card-price'>{price}</p>
       <button className='card-btn'>Add to Cart</button>
     </div>
   );
